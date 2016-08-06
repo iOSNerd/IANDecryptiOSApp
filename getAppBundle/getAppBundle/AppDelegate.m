@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <objc/runtime.h>
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -38,13 +39,23 @@
         data[@"resourcesDirectoryURL"] = resourcesDirectoryURL;
         data[@"sdkVersion"] = sdkVersion;
         data[@"dataContainerURL"] = dataContainerURL;
-
+        
         allDic[bundleID] = data;
-
+        
     }
     
     NSLog(@"☺%@",allDic);
     
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    ViewController *viewController = [[ViewController alloc] init];
+    viewController.text = [allDic description];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:viewController];
+    
+    self.window.rootViewController = nav;
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
